@@ -26,11 +26,12 @@
     <h1 style="text-align:center;">Willerzell Dashboard</h1>
     <p style="text-align:center; color:#555;">Live weather & automation control</p>
 
+    <!-- FIXED BUTTON -->
     <div style="text-align:center; margin-top:30px;">
-      <a href="https://node-red-willerzell-weather-production.up.railway.app/ui"
+      <a href="https://node-red-willerzell-weather-production.up.railway.app/weather"
          style="display:inline-block; padding:14px 24px; background:#0078ff; color:white;
                 border-radius:8px; text-decoration:none; font-size:18px;">
-        Open Live Dashboard
+        Open Live Weather
       </a>
     </div>
 
@@ -80,17 +81,17 @@
   <script>
     async function loadForecast() {
       try {
-        const response = await fetch("https://node-red-willerzell-weather-production.up.railway.app/forecast");
+        const response = await fetch("https://node-red-willerzell-weather-production.up.railway.app/weather");
         const data = await response.json();
 
-        document.getElementById("today_temp").innerText = data.today.temp_max + " °C";
-        document.getElementById("today_sun").innerText = data.today.sunshine + " h";
+        document.getElementById("today_temp").innerText = data.daily.today.temp_max + " °C";
+        document.getElementById("today_sun").innerText = data.daily.today.sunshine + " h";
 
-        document.getElementById("tomorrow_temp").innerText = data.tomorrow.temp_max + " °C";
-        document.getElementById("tomorrow_sun").innerText = data.tomorrow.sunshine + " h";
+        document.getElementById("tomorrow_temp").innerText = data.daily.tomorrow.temp_max + " °C";
+        document.getElementById("tomorrow_sun").innerText = data.daily.tomorrow.sunshine + " h";
 
-        document.getElementById("day3_temp").innerText = data.day_after_tomorrow.temp_max + " °C";
-        document.getElementById("day3_sun").innerText = data.day_after_tomorrow.sunshine + " h";
+        document.getElementById("day3_temp").innerText = data.daily.day_after_tomorrow.temp_max + " °C";
+        document.getElementById("day3_sun").innerText = data.daily.day_after_tomorrow.sunshine + " h";
       } catch (e) {
         console.error("Fehler beim Laden der Vorhersage:", e);
       }
